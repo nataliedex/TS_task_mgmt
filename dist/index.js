@@ -1,4 +1,4 @@
-import { createTask } from "./task";
+import { createTask } from "./task.js";
 const tasks = [];
 function addTask(title) {
     const task = createTask(title);
