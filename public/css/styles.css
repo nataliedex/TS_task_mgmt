@@ -1,5 +1,4 @@
-#todo-item:hover {
-    font-weight: bold;
+.todo-item:hover {
     cursor: pointer;
 }
 
