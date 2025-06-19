@@ -3,6 +3,7 @@ const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
 const list = document.getElementById("todo-list");
 let tasks = [];
+let currentlyEditingId = null;
 function addTask(title) {
     const task = createTask(title);
     tasks.push(task);
@@ -27,10 +28,47 @@ function renderTasks() {
             deleteTask(task.id);
             renderTasks();
         });
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.classList.add("todo-item");
+        editButton.addEventListener("click", () => {
+            editTask(task.id, li);
+        });
         list.appendChild(li);
         list.appendChild(completeButton);
         list.appendChild(deleteButton);
+        list.appendChild(editButton);
     });
+}
+function editTask(id, li) {
+    var _a;
+    if (currentlyEditingId !== null && currentlyEditingId !== id) {
+        return;
+    }
+    currentlyEditingId = id;
+    li.innerHTML = "";
+    const textField = document.createElement("input");
+    textField.type = "text";
+    textField.value = ((_a = tasks.find(task => task.id === id)) === null || _a === void 0 ? void 0 : _a.title) || "";
+    const submitButton = document.createElement("button");
+    submitButton.textContent = "Save";
+    submitButton.addEventListener("click", () => {
+        const task = tasks.find(task => task.id === id);
+        if (task) {
+            task.title = textField.value;
+        }
+        currentlyEditingId = null;
+        renderTasks();
+    });
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
+        currentlyEditingId = null;
+        renderTasks();
+    });
+    list.appendChild(textField);
+    list.appendChild(submitButton);
+    list.appendChild(cancelButton);
 }
 function deleteTask(id) {
     tasks = tasks.filter(task => task.id !== id);

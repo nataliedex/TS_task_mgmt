@@ -6,6 +6,7 @@ const list = document.getElementById("todo-list") as HTMLUListElement;
 
 
 let tasks: Task[] = [];
+let currentlyEditingId: number | null = null;
 
 function addTask(title: string): void {
     const task = createTask(title);
@@ -38,11 +39,57 @@ function renderTasks(): void {
             renderTasks();
         });
 
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.classList.add("todo-item");
+
+        editButton.addEventListener("click", () => {
+            editTask(task.id, li);
+        });
+
+
 
         list.appendChild(li);
         list.appendChild(completeButton);
         list.appendChild(deleteButton);
+        list.appendChild(editButton);
     });
+}
+
+function editTask(id: number, li: HTMLLIElement): void {
+    if(currentlyEditingId !== null && currentlyEditingId !== id){
+        return;
+    }
+    currentlyEditingId = id;
+    li.innerHTML = "";
+
+    const textField = document.createElement("input");
+    textField.type = "text";
+    textField.value = tasks.find(task => task.id === id)?.title || "";
+
+    const submitButton = document.createElement("button");
+    submitButton.textContent = "Save";
+
+    submitButton.addEventListener("click", () => {
+        const task = tasks.find(task => task.id === id);
+        if(task){
+            task.title = textField.value;
+        }
+        currentlyEditingId = null;
+        renderTasks();
+    });
+
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+
+    cancelButton.addEventListener("click", () => {
+        currentlyEditingId = null;
+        renderTasks();
+    });
+    
+    list.appendChild(textField);
+    list.appendChild(submitButton);
+    list.appendChild(cancelButton);
 }
 
 function deleteTask(id: number): void {
