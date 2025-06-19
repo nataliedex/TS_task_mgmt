@@ -1,0 +1,9 @@
+#todo-item:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#todo-item {
+    color: green;
+}
+
