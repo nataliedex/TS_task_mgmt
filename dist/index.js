@@ -2,7 +2,7 @@ import { createTask } from "./task.js";
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
 const list = document.getElementById("todo-list");
-const tasks = [];
+let tasks = [];
 function addTask(title) {
     const task = createTask(title);
     tasks.push(task);
@@ -12,15 +12,30 @@ function renderTasks() {
     list.innerHTML = "";
     tasks.forEach(task => {
         const li = document.createElement("li");
-        li.textContent = `${task.title.toUpperCase()} status: ${task.completed ? "Complete" : "Pending"}`;
-        li.id = "todo-item";
-        li.addEventListener("click", () => {
-            console.log(`am clicking ${task.id}`);
+        li.textContent = `${task.title} status: ${task.completed ? "Complete" : "Pending"}`;
+        const completeButton = document.createElement("button");
+        completeButton.textContent = task.completed ? "Undo Completion" : "Complete";
+        completeButton.classList.add("todo-item");
+        completeButton.addEventListener("click", () => {
             completeTask(task.id);
             renderTasks();
         });
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("todo-item");
+        deleteButton.addEventListener("click", () => {
+            deleteTask(task.id);
+            renderTasks();
+        });
         list.appendChild(li);
+        list.appendChild(completeButton);
+        list.appendChild(deleteButton);
     });
+}
+function deleteTask(id) {
+    tasks = tasks.filter(task => task.id !== id);
+    console.log(`Task with idea ${id} removed`);
+    renderTasks();
 }
 function completeTask(id) {
     const task = tasks.find(task => task.id === id);
