@@ -41,7 +41,6 @@ function renderTasks() {
     });
 }
 function editTask(id, li) {
-    var _a;
     if (currentlyEditingId !== null && currentlyEditingId !== id) {
         return;
     }
@@ -49,7 +48,7 @@ function editTask(id, li) {
     li.innerHTML = "";
     const textField = document.createElement("input");
     textField.type = "text";
-    textField.value = ((_a = tasks.find(task => task.id === id)) === null || _a === void 0 ? void 0 : _a.title) || "";
+    textField.value = tasks.find(task => task.id === id)?.title || "";
     const submitButton = document.createElement("button");
     submitButton.textContent = "Save";
     submitButton.addEventListener("click", () => {

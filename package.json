@@ -1,6 +1,7 @@
 {
   "name": "ts_task_mgmt",
   "version": "1.0.0",
+  "type": "module",
   "description": "learning to create a file in TypeScript",
   "main": "index.js",
   "scripts": {
@@ -11,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mongoose": "^8.16.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "url": "^0.11.4"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.3",
