@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 
 // Using EJS for views
 app.set("view engine", "ejs");
-app.set("view", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../views"));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -26,10 +26,6 @@ app.use(express.urlencoded({ extended: true }));
 //Static Folder
 app.use(express.static("public"));
 
-// Setup Routes for which the server is listening
-// app.get("/", (req, res) => {
-//     res.render("index.ejs");
-// });
 
 app.use("/", taskRoutes);
 

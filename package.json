@@ -5,7 +5,9 @@
   "description": "learning to create a file in TypeScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "npm run build && node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mongoose": "^8.16.0",
+    "node": "^24.2.0",
     "path": "^0.12.7",
     "url": "^0.11.4"
   },
