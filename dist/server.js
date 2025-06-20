@@ -4,6 +4,8 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import taskRoutes from "./route/taskRoutes.js";
+import todoistRoutes from "./route/todoistRoutes.js";
+const TODOIST_API_TOKEN = process.env.TODOIST_API_TOKEN;
 dotenv.config();
 const app = express();
 connectDB();
@@ -18,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 //Static Folder
 app.use(express.static("public"));
 app.use("/", taskRoutes);
+app.use("/todoist", todoistRoutes);
 app.listen(process.env.PORT || 8000, () => {
     console.log(`Server is currently running on Port; ${process.env.PORT || 8000}`);
 });
