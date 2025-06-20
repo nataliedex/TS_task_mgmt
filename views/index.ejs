@@ -1,25 +1,28 @@
 <%- include('partials/header') -%>
-    <h1>To-Do List</h1>
+<div class="container py-3 my-4">
+  <h1>To-Do List</h1>
   
-    <form id="todo-form" action="/addTask/" method="POST">
-      <input type="text" id="todo-input" placeholder="Enter a task" name="title"/>
-      <button type="submit">Add Task</button>
-    </form>
-    <ul id="todo-list"></ul>
-      <% tasks.forEach(task => { %>
-        <li>
-          <%= task.title %> - <%= task.completed ? "Complete" : "Pending" %>
-          
-          <form action="/completeTask/<%= task._id %>" method="POST" style="display: inline;">
-            <button type="submit"><%= task.completed ? "Undo" : "Complete" %></button>
-          </form>
-
-          <form action="/deleteTask/<%= task._id %>" method="POST" style="display: inline;">
-            <button type="submit">Delete</button>
-          </form>
-        </li>
+  <form id="todo-form" action="/addTask/" method="POST">
+    <input type="text" id="todo-input" placeholder="Enter a task" name="title"/>
+    <button type="submit" class="btn btn-primary">Add Task</button>
+  </form>
+  <ul id="todo-list"></ul>
+    <% tasks.forEach(task => { %>
+      <li class="mb-3" style="font-weight: <%= task.completed ? 'normal' : 'bold' %>;">
+        <%= task.title %> - <%= task.completed ? "Complete" : "Pending" %>
         
-      <% }) %>
+        <form action="/completeTask/<%= task._id %>" method="POST" style="display: inline;">
+          <button class="btn btn-primary" type="submit"><%= task.completed ? "Undo" : "Complete" %></button>
+        </form>
+
+        <form action="/deleteTask/<%= task._id %>" method="POST" style="display: inline;">
+          <button class="btn btn-primary" type="submit">Delete</button>
+        </form>
+      </li>
+      
+    <% }) %>
+</div>
+    
     
 
 
