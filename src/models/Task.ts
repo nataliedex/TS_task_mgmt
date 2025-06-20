@@ -1,15 +1,8 @@
-export interface Task {
-    id: number;
-    title: string;
-    completed: boolean;
-}
+import mongoose from "mongoose";
 
-let nextId: number = 1;
+const TaskSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    completed: { type: Boolean, default: false },
+});
 
-export function createTask(title: string): Task {
-    return {
-        id: nextId++,
-        title,
-        completed: false,
-    };
-}
+export default mongoose.model("Task.js", TaskSchema);
