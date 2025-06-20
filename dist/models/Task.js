@@ -3,4 +3,4 @@ const TaskSchema = new mongoose.Schema({
     title: { type: String, required: true },
     completed: { type: Boolean, default: false },
 });
-export default mongoose.model("Task.js", TaskSchema);
+export default mongoose.model("Task", TaskSchema);
