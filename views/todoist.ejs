@@ -1,15 +1,28 @@
 <%- include('partials/header') -%>
 
+<form action="/todoist/addTask/" method="POST">
+    <input type="text" id="todo-input" placeholder="Enter a task" name="content"/>
+    <button type="submit" class="btn btn-primary">Add Task</button>
+  </form>
+
 <h1>Todoist Tasks</h1>
 <ul>
     <% todoistTasks.forEach(task => { %>
         <li>
         <%= task.content %> - <%= task.completed ? "Complete" : "Pending" %>
+
+        <form action="/todoist/completeTask/<%= task.id %>" method="POST" style="display: inline;">
+            <button class="btn btn-primary" type="submit"><%= task.completed ? "Undo" : "Complete" %></button>
+        </form>
+
+        <form action="/todoist/deleteTask/<%= task.id %>" method="POST" style="display: inline;">
+            <button class="btn btn-primary" type="submit">Delete</button>
+        </form>
+        
         </li>
     <% }) %>
 </ul>
 
 
-<h2><% todoistTasks.length() %></h2>
 
 <%- include('partials/footer') -%>
