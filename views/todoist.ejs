@@ -9,7 +9,7 @@
 <ul>
     <% todoistTasks.forEach(task => { %>
         <li>
-        <%= task.content %> - <%= task.completed ? "Complete" : "Pending" %>
+        <%= task.id %> - <%= task.content %> - <%= task.completed ? "Complete" : "Pending" %>
 
         <form action="/todoist/completeTask/<%= task.id %>" method="POST" style="display: inline;">
             <button class="btn btn-primary" type="submit"><%= task.completed ? "Undo" : "Complete" %></button>

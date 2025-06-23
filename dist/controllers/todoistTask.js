@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 const todoistTaskController = {
     getIndex: async (req, res) => {
         try {
@@ -20,7 +21,8 @@ const todoistTaskController = {
             const response = await fetch("https://api.todoist.com/rest/v2/tasks", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${process.env.TODOIST_API_TOKEN}`
+                    "Authorization": `Bearer ${process.env.TODOIST_API_TOKEN}`,
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     content: req.body.content
@@ -35,10 +37,16 @@ const todoistTaskController = {
     },
     completeTask: async (req, res) => {
         try {
+            const taskID = req.params.id;
             const response = await fetch(`https://api.todoist.com/rest/v2/tasks/${taskID}/close`, {
                 method: "POST",
-                headers: { "Authorization": `Bearer ${process.env.TODOIST_API_TOKEN}` }
+                headers: {
+                    "Authorization": `Bearer ${process.env.TODOIST_API_TOKEN}`
+                }
             });
+            if (!response.ok) {
+                throw new Error(`Failed to complete task: ${response.statusText}`);
+            }
             res.redirect("/todoist");
         }
         catch (err) {
@@ -48,9 +56,10 @@ const todoistTaskController = {
     },
     deleteTask: async (req, res) => {
         try {
+            const taskID = req.params.id;
             const response = await fetch(`https://api.todoist.com/rest/v2/tasks/${taskID}`, {
                 method: "DELETE",
-                headers: { "Authorization": `Bears ${process.env.TODOIST_API_TOKEN}` }
+                headers: { "Authorization": `Bearer ${process.env.TODOIST_API_TOKEN}` }
             });
             res.redirect("/todoist");
         }
