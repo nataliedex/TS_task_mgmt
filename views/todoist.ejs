@@ -1,5 +1,15 @@
 <%- include('partials/header') -%>
 
+<h1>Todoist Tasks</h1>
+<ul>
+    <% todoistTasks.forEach(task => { %>
+        <li>
+        <%= task.content %> - <%= task.completed ? "Complete" : "Pending" %>
+        </li>
+    <% }) %>
+</ul>
+
+
 <h2><% todoistTasks.length() %></h2>
 
 <%- include('partials/footer') -%>

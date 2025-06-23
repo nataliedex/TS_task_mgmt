@@ -8,7 +8,7 @@ const todoistTaskController = {
                 }
             });
             const todoistTasks = await response.json();
-            res.json(todoistTasks);
+            res.render("todoist.ejs", { todoistTasks });
         }
         catch (err) {
             console.error(err);

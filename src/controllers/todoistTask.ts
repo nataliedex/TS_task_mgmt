@@ -11,7 +11,7 @@ const todoistTaskController = {
                 }
             });
             const todoistTasks = await response.json();
-            res.json(todoistTasks);
+            res.render("todoist.ejs", { todoistTasks });
         } catch(err) {
             console.error(err);
             res.status(500).send("Error fetching tasks from the todoist");
