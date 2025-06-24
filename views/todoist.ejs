@@ -3,25 +3,62 @@
 <form action="/todoist/addTask/" method="POST">
     <input type="text" id="todo-input" placeholder="Enter a task" name="content"/>
     <button type="submit" class="btn btn-primary">Add Task</button>
-  </form>
+</form>
 
 <h1>Todoist Tasks</h1>
-<ul>
+<table class="table table-striped table-bordered table-responsive">
+    <tr>
+        <th style="width: 10%">Task ID</th>
+        <th style="width: 40%">Task Description</th>
+        <th style="width: 10%">Status</th>
+        <th style="width: 10%">Complete</th>
+        <th style="width: 10%">Delete</th>
+    </tr>
     <% todoistTasks.forEach(task => { %>
-        <li>
-        <%= task.id %> - <%= task.content %> - <%= task.completed ? "Complete" : "Pending" %>
-
-        <form action="/todoist/completeTask/<%= task.id %>" method="POST" style="display: inline;">
-            <button class="btn btn-primary" type="submit"><%= task.completed ? "Undo" : "Complete" %></button>
-        </form>
-
-        <form action="/todoist/deleteTask/<%= task.id %>" method="POST" style="display: inline;">
-            <button class="btn btn-primary" type="submit">Delete</button>
-        </form>
-        
-        </li>
+        <tr>
+            <td><%= task.id %></td>
+            <td><%= task.content %></td>
+            <td><%= task.completed ? "Complete" : "Pending" %></td>
+            <td>
+                <form action="/todoist/completeTask/<%= task.id %>" method="POST" style="display: inline;">
+                    <button class="btn btn-primary" type="submit"><%= task.completed ? "Undo" : "Complete" %></button>
+                </form>
+            </td>
+            <td>
+                <form action="/todoist/deleteTask/<%= task.id %>" method="POST" style="display: inline;">
+                    <button class="btn btn-primary" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
     <% }) %>
-</ul>
+
+</table>
+
+<h1>Completed Tasks</h1>
+<table class="table table-striped table-bordered table-responsive">
+    <tr>
+        <th style="width: 10%">Task ID</th>
+        <th style="width: 40%">Task Description</th>
+        <th style="width: 10%">Status</th>
+        <th>Add to Current Tasks</th>
+    </tr>
+    <% completedTasks.items.forEach(task => { %>
+        <tr>
+            <td><%= task.id %></td>
+            <td><%= task.content %></td>
+            <td><%= task.completed_at ? "Complete" : "Pending" %></td>
+            <td>
+                <form action="/todoist/addBack/" method="POST">
+                    <input type="hidden" name="content" value="<%= task.content %>">
+                    <input type="hidden" name="id" value="<%= task.id %>">
+                    <button type="submit" class="btn btn-primary"">Add Task</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+
+</table>
+
 
 
 
